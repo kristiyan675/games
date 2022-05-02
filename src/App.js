@@ -5,6 +5,7 @@ import Create from "./components/create";
 import Catalog from "./components/catalog";
 import Login from "./components/login";
 import Register from "./components/register";
+import Details from "./components/details";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
             <main id="main-content">
                 <Routes>
                     <Route path='/' element={< WelcomeWorld />} />
+                    <Route path='/games/:id' element={< Details />} />
                     <Route path='/games' element={< Catalog />} />
                     <Route path='/create' element={< Create />} />
                     {/*<Route path='/logout' element={< Log />} />*/}

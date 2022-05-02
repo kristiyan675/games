@@ -1,4 +1,19 @@
-const welcomeWorld = () => {
+import {getLatest} from "../services/gameService";
+import {useState, useEffect} from "react";
+import LatestGameCard from './latestGameCard'
+
+
+const WelcomeWorld = () => {
+    let [games, setGames] = useState([])
+
+    useEffect(() => {
+        async function getLatestGames (){
+            let result = await getLatest()
+            setGames(result)
+        }
+        getLatestGames()
+    }, [])
+
     return (
         <section id="welcome-world">
 
@@ -11,49 +26,15 @@ const welcomeWorld = () => {
             <div id="home-page">
                 <h1>Latest Games</h1>
 
+                {
+                    games.length > 0?
+                        games.map(x => <LatestGameCard key={x._id} game={x}/>)
+                        : <p className="no-articles">No games yet</p>
+                }
 
-                <div className="game">
-                    <div className="image-wrap">
-                        <img src="./images/CoverFire.png"/>
-                    </div>
-                    <h3>Cover Fire</h3>
-                    <div className="rating">
-                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                    </div>
-                    <div className="data-buttons">
-                        <a href="#" className="btn details-btn">Details</a>
-                    </div>
-                </div>
-                <div className="game">
-                    <div className="image-wrap">
-                        <img src="./images/ZombieLang.png"/>
-                    </div>
-                    <h3>Zombie Lang</h3>
-                    <div className="rating">
-                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                    </div>
-                    <div className="data-buttons">
-                        <a href="#" className="btn details-btn">Details</a>
-                    </div>
-                </div>
-                <div className="game">
-                    <div className="image-wrap">
-                        <img src="./images/MineCraft.png"/>
-                    </div>
-                    <h3>MineCraft</h3>
-                    <div className="rating">
-                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                    </div>
-                    <div className="data-buttons">
-                        <a href="#" className="btn details-btn">Details</a>
-                    </div>
-                </div>
-
-
-                <p className="no-articles">No games yet</p>
             </div>
         </section>
     )
 };
 
-export default welcomeWorld
+export default WelcomeWorld
